@@ -22,18 +22,21 @@ pipeline {
                 }
             }
         }
-        stage("build image") {
+        stage("build image and Push") {
             steps {
                 script {
-                    buildImage()
+                    buildImage 'iamabhi1997/my-apps:jma-2.2'
+                    dockerLogin()
+                    dockerPush 'iamabhi1997/my-apps:jma-2.2'
                 }
+                
             }
         }
         stage("deploy") {
             steps {
                 script {
-                    echo "deploying"
-                    //gv.deployApp()
+                    echo "deploying...."
+                    gv.deployApp()
                 }
             }
         }
